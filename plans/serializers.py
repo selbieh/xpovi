@@ -42,6 +42,13 @@ class UserSectionAnswersSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = UserSectionAnswers
+        validators = [
+            serializers.UniqueTogetherValidator(
+                queryset=UserSectionAnswers.objects.all(),
+                fields=('status', 'user','section'),
+                message=("This competency already exists in your academy"),
+            )
+        ]
 
 
 class SimpleSectionSerializer(serializers.ModelSerializer):
